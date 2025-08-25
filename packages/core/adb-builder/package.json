@@ -1,0 +1,12 @@
+{
+  "name": "@perf-profiler/adb-builder",
+  "version": "0.1.0",
+  "main": "dist/buildAdbPrefix.js",
+  "types": "dist/buildAdbPrefix.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.2"
+  }
+}
