@@ -1,17 +1,17 @@
 import { AndroidProfiler, FlashlightSelfProfiler } from "@perf-profiler/android";
 import { IOSProfiler } from "@perf-profiler/ios";
-import { Profiler } from "@perf-profiler/types";
+import { Profiler, AdbPrefixOptions } from "@perf-profiler/types";
 
-const getProfiler = (): Profiler => {
+export function getProfiler(options?: AdbPrefixOptions): Profiler {
   switch (process.env.PLATFORM) {
     case "ios":
       return new IOSProfiler();
     case "flashlight":
-      return new FlashlightSelfProfiler();
+      return new FlashlightSelfProfiler(options);
     default:
-      return new AndroidProfiler();
+      return new AndroidProfiler(options);
   }
-};
+}
 
 export const profiler: Profiler = getProfiler();
 

@@ -1,4 +1,5 @@
 import { Logger } from "@perf-profiler/logger";
+import { buildAdbPrefix } from "@perf-profiler/adb-builder";
 import { ChildProcess, execSync } from "child_process";
 import { executeAsync, executeCommand } from "../shell";
 import { getAbi } from "../getAbi";
@@ -9,10 +10,11 @@ import { refreshRateManager } from "../detectCurrentDeviceRefreshRate";
 
 export class AndroidProfiler extends UnixProfiler {
   private aTraceProcess: ChildProcess | null = null;
+  private adbPrefix: string = `${buildAdbPrefix(this.adbPrefixOptions)}`;
 
   installProfilerOnDevice(): void {
     super.installProfilerOnDevice();
-    if (!refreshRateManager.isInitialized()) refreshRateManager.setRefreshRate();
+    if (!refreshRateManager.isInitialized()) refreshRateManager.setRefreshRate(this.adbPrefix);
     if (!this.aTraceProcess) this.startATrace();
   }
 
@@ -21,7 +23,10 @@ export class AndroidProfiler extends UnixProfiler {
   }
 
   assertSupported(): void {
-    const sdkVersion = parseInt(executeCommand("adb shell getprop ro.build.version.sdk"), 10);
+    const sdkVersion = parseInt(
+      executeCommand(`${this.adbPrefix} shell getprop ro.build.version.sdk`),
+      10
+    );
 
     if (sdkVersion < 24) {
       throw new Error(
@@ -31,8 +36,8 @@ export class AndroidProfiler extends UnixProfiler {
   }
 
   protected pushExecutable(binaryTmpPath: string): void {
-    executeCommand(`adb push ${binaryTmpPath} ${this.getDeviceProfilerPath()}`);
-    executeCommand(`adb shell chmod 755 ${this.getDeviceProfilerPath()}`);
+    executeCommand(`${this.adbPrefix} push ${binaryTmpPath} ${this.getDeviceProfilerPath()}`);
+    executeCommand(`${this.adbPrefix} shell chmod 755 ${this.getDeviceProfilerPath()}`);
   }
 
   public getDeviceProfilerPath(): string {
@@ -55,21 +60,21 @@ export class AndroidProfiler extends UnixProfiler {
      *
      * See https://stackoverflow.com/questions/63796633/spawnsync-bin-sh-enobufs
      */
-    execSync("adb shell atrace --async_stop", { stdio: "ignore" });
+    execSync(`${this.adbPrefix} shell atrace --async_stop`, { stdio: "ignore" });
     Logger.debug("Starting atrace...");
-    this.aTraceProcess = executeAsync("adb shell atrace -c view -t 999");
+    this.aTraceProcess = executeAsync(`${this.adbPrefix} shell atrace -c view -t 999`);
   }
 
   public getDeviceCommand(command: string): string {
-    return `adb shell ${command}`;
+    return `${this.adbPrefix} shell ${command}`;
   }
 
   protected getAbi(): string {
-    return getAbi();
+    return getAbi(buildAdbPrefix(this.adbPrefixOptions));
   }
 
   public detectCurrentBundleId(): string {
-    return detectCurrentAppBundleId().bundleId;
+    return detectCurrentAppBundleId(this.adbPrefix).bundleId;
   }
 
   public supportFPS(): boolean {
@@ -77,11 +82,11 @@ export class AndroidProfiler extends UnixProfiler {
   }
 
   public getScreenRecorder(videoPath: string) {
-    return new ScreenRecorder(videoPath);
+    return new ScreenRecorder(videoPath, this.adbPrefix);
   }
 
   async stopApp(bundleId: string) {
-    execSync(`adb shell am force-stop ${bundleId}`);
+    execSync(`${this.adbPrefix} shell am force-stop ${bundleId}`);
     await new Promise((resolve) => setTimeout(resolve, 3000));
   }
 

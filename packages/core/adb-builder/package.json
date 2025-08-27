@@ -6,6 +6,9 @@
   "scripts": {
     "build": "tsc"
   },
+  "dependencies": {
+    "@perf-profiler/types": "^0.8.0"
+  },
   "devDependencies": {
     "typescript": "^5.9.2"
   }

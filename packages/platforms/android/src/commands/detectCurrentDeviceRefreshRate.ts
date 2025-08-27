@@ -14,9 +14,9 @@ function deviceRefreshRateManager() {
       }
       return refreshRate;
     },
-    setRefreshRate: () => {
+    setRefreshRate: (adbPrefix: string = "adb") => {
       try {
-        refreshRate = detectCurrentDeviceRefreshRate();
+        refreshRate = detectCurrentDeviceRefreshRate(adbPrefix);
         Logger.info(`Target frame rate: ${refreshRate} Hz`);
       } catch (e) {
         Logger.error(`Could not detect device refresh rate: ${e}`);
@@ -26,8 +26,8 @@ function deviceRefreshRateManager() {
   };
 }
 
-export const detectCurrentDeviceRefreshRate = () => {
-  const command = 'adb shell dumpsys display | grep -E "mRefreshRate|DisplayDeviceInfo"';
+export const detectCurrentDeviceRefreshRate = (adbPrefix: string = "adb") => {
+  const command = `${adbPrefix} shell dumpsys display | grep -E "mRefreshRate|DisplayDeviceInfo"`;
   const commandOutput = executeCommand(command);
 
   const renderFrameRateMatch = commandOutput.match(/renderFrameRate\s+(\d+\.?\d*)/);

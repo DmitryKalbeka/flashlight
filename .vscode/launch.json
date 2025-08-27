@@ -1,0 +1,37 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug measure2",
+      "runtimeArgs": ["-r", "ts-node/register"],
+      "program": "${workspaceFolder}/packages/commands/measure2/src/bin.ts",
+      "args": ["measure2", "--bundleId", "com.twentyonevek"],
+      "cwd": "${workspaceFolder}/packages/commands/measure2",
+      "skipFiles": ["<node_internals>/**"],
+      "outFiles": [],
+      "console": "integratedTerminal"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug measure2 v2",
+      "runtimeArgs": ["-r", "ts-node/register"],
+      "program": "${workspaceFolder}/packages/commands/measure2/src/bin.ts",
+      "args": [
+        "measure2",
+        "--bundleId",
+        "com.twentyonevek",
+        "--adbServerPort",
+        "5037",
+        "--deviceName",
+        "emulator-5554"
+      ],
+      "cwd": "${workspaceFolder}/packages/commands/measure2",
+      "skipFiles": ["<node_internals>/**"],
+      "outFiles": [],
+      "console": "integratedTerminal"
+    }
+  ]
+}

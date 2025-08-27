@@ -1,7 +1,7 @@
 import { executeCommand } from "./shell";
 
-export const detectCurrentAppBundleId = () => {
-  const command = "adb shell dumpsys window windows";
+export const detectCurrentAppBundleId = (adbPrefix: string = "adb") => {
+  const command = `${adbPrefix} shell dumpsys window windows`;
 
   const commandOutput = executeCommand(command)
     .split(/\r\n|\n|\r/)

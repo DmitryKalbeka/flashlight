@@ -16,11 +16,13 @@ async function isProcessRunning(pid: number): Promise<boolean> {
 
 export class ScreenRecorder {
   private fileName;
+  private adbPrefix: string;
   private process?: ChildProcess = undefined;
   private recordingStartTime = 0;
 
-  constructor(file: string) {
+  constructor(file: string, adbPrefix: string = "adb") {
     this.fileName = file;
+    this.adbPrefix = adbPrefix;
   }
 
   async startRecording({
@@ -33,7 +35,7 @@ export class ScreenRecorder {
     const filePath = `${RECORDING_FOLDER}${this.fileName}`;
 
     this.process = executeAsync(
-      `adb shell screenrecord ${filePath} --bit-rate ${bitRate} ${
+      `${this.adbPrefix} shell screenrecord ${filePath} --bit-rate ${bitRate} ${
         size ? `--size ${size}` : ""
       } --verbose`
     );
@@ -79,8 +81,8 @@ export class ScreenRecorder {
   }
 
   async pullRecording(destinationPath: string): Promise<void> {
-    executeCommand(`adb pull ${RECORDING_FOLDER}${this.fileName} ${destinationPath}`);
-    executeCommand(`adb shell rm ${RECORDING_FOLDER}${this.fileName}`);
+    executeCommand(`${this.adbPrefix} pull ${RECORDING_FOLDER}${this.fileName} ${destinationPath}`);
+    executeCommand(`${this.adbPrefix} shell rm ${RECORDING_FOLDER}${this.fileName}`);
     Logger.info(`Recording saved to ${destinationPath}/${this.fileName}`);
   }
 }

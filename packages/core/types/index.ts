@@ -105,3 +105,9 @@ export interface Profiler {
 export interface DeviceSpecs {
   refreshRate: number;
 }
+
+export interface AdbPrefixOptions {
+  adbServerHost?: string;
+  adbServerPort?: number;
+  deviceName?: string;
+}

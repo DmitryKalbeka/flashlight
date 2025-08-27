@@ -13,6 +13,7 @@ import {
   Profiler,
   ScreenRecorder,
   ThreadNames,
+  AdbPrefixOptions,
 } from "@perf-profiler/types";
 import { CpuMeasureAggregator } from "../cpu/CpuMeasureAggregator";
 import { FrameTimeParser } from "../atrace/pollFpsUsage";
@@ -27,6 +28,12 @@ const defaultBinaryFolder = `${__dirname}/../../..${__dirname.includes("dist") ?
 const binaryFolder = process.env.FLASHLIGHT_BINARY_PATH || defaultBinaryFolder;
 
 export abstract class UnixProfiler implements Profiler {
+  protected adbPrefixOptions?: AdbPrefixOptions;
+
+  constructor(options?: AdbPrefixOptions) {
+    this.adbPrefixOptions = options;
+  }
+
   stop(): void {
     throw new Error("Method not implemented.");
   }

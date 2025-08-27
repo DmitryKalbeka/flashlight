@@ -1,6 +1,6 @@
 export interface AdbPrefixOptions {
   adb_server_host?: string;
-  adb_server_port?: string;
+  adb_server_port?: number;
   device_name?: string;
 }
 

@@ -1,15 +1,9 @@
 {
-  "name": "@perf-profiler/e2e",
-  "version": "0.11.3",
-  "author": {
-    "name": "Almouro",
-    "email": "alexandrem@bam.tech"
-  },
+  "name": "@perf-profiler/measure2",
+  "version": "0.1.0",
   "license": "MIT",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
   "bin": {
-    "perf-profiler-e2e": "dist/bin.js"
+    "perf-profiler-measure": "dist/bin.js"
   },
   "scripts": {
     "test": "tsc"
@@ -20,6 +14,7 @@
     "@perf-profiler/profiler": "^0.10.11",
     "@perf-profiler/reporter": "^0.9.0",
     "@perf-profiler/types": "^0.8.0",
+    "@perf-profiler/adb-builder": "^0.1.0",
     "commander": "^12.0.0"
   }
 }

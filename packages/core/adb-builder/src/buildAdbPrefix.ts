@@ -1,13 +1,15 @@
-export interface AdbPrefixOptions {
-  adbServerHost?: string;
-  adbServerPort?: string;
-  deviceName?: string;
+import { AdbPrefixOptions } from "@perf-profiler/types";
+
+export function buildAdbPrefix(options: AdbPrefixOptions | undefined): string {
+  if (!options) return "adb";
+  return [
+    "adb",
+    options.adbServerHost ? ["-H", options.adbServerHost] : [],
+    options.adbServerPort ? ["-P", String(options.adbServerPort)] : [],
+    options.deviceName ? ["-s", options.deviceName] : [],
+  ]
+    .flat()
+    .join(" ");
 }
 
-export function buildAdbPrefix(options: AdbPrefixOptions): string[] {
-  const args: string[] = [];
-  if (options.adbServerHost) args.push("-H", options.adbServerHost);
-  if (options.adbServerPort) args.push("-P", options.adbServerPort);
-  if (options.deviceName) args.push("-s", options.deviceName);
-  return args;
-}
+export { AdbPrefixOptions };

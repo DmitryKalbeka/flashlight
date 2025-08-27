@@ -5,5 +5,7 @@
     ".env.staging": "ini",
     "index": "plaintext",
     "chrono": "cpp"
-  }
+  },
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true
 }
