@@ -4,6 +4,18 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "Debug cli",
+      "runtimeArgs": ["-r", "ts-node/register"],
+      "program": "${workspaceFolder}/packages/commands/cli/src/bin.ts",
+      "cwd": "${workspaceFolder}/packages/commands/cli",
+      "args": ["measure", "--help"],
+      "skipFiles": ["<node_internals>/**"],
+      "outFiles": [],
+      "console": "integratedTerminal"
+    },
+    {
+      "type": "node",
+      "request": "launch",
       "name": "Debug measure2",
       "runtimeArgs": ["-r", "ts-node/register"],
       "program": "${workspaceFolder}/packages/commands/measure2/src/bin.ts",

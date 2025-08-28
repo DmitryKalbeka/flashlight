@@ -32,7 +32,7 @@ export const rule = createRule<Options, MessageId>({
   meta: {
     docs: {
       description: "RN FlatList & SectionList should not be used",
-      recommended: "error",
+      recommended: "strict",
     },
     messages: {
       "no-flatlist-import": `Avoid using FlatList or SectionList as it's performance heavy in your app rendering. It can be visible on moderately long lists during fast scrolling with white items instead of your list's elements.

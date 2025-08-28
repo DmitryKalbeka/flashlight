@@ -6,7 +6,10 @@
     "perf-profiler-measure": "dist/bin.js"
   },
   "scripts": {
-    "test": "tsc"
+    "build": "tsc -p tsconfig.json",
+    "pkg:all": "pkg dist/bin.js --targets node18-linux-x64,node18-macos-x64,node18-win-x64 --output flashlight",
+    "pkg:mac": "pkg dist/bin.js --targets node18-macos-x64 --config pkg-config.json --output flashlight",
+    "build:lerna": "lerna run build"
   },
   "dependencies": {
     "@perf-profiler/ios-instruments": "^0.3.3",

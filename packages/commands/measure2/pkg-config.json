@@ -1,0 +1,7 @@
+{
+  "assets": [
+    "../../platforms/android/cpp-profiler/bin/*",
+    "packages/**/dist/**/*.js",
+    "packages/**/package.json"
+  ]
+}
