@@ -2,45 +2,12 @@
   <img src="./website/static/img/logo-black.svg" alt="Flashlight" width="50%" ><br />
 </p>
 
-# Get a performance score for your app 🔦
+# Форк репозитория [`flashlight`](https://github.com/bamlab/flashlight) с модификацией (добавлена функция measure2) 🔦
 
-Flashlight generates a performance score for your Android app, aggregating different metrics. _(📱 iOS support is also [in the works](https://github.com/bamlab/flashlight/issues))_
+Функция `measure2` позволяет снимать репорт производительности с девайса подключенного к удаленному adb серверу. Измерения начинаются сразу после запуска команды и заканчиваются после отправки `stop` в консоль. Соответственно добавлены параметры функции для конфигурации удаленного девайса. Все остальные параметры и функциональность оставлены такими же как и у функции `measure` оригинального `flashlight`.
 
-🙅 No setup required in your app  
-🚀 Measure performance even on **production** apps  
-✨ Generates beautiful reports ([like this Flatlist/Flashlist comparison](https://docs.flashlight.dev/examples/flashlist/report.html))
+Для сборки бинарника с функцией `measure2` запустить скрипт `pkg:all` или `pkg:mac` в `packages/commands/measure2/package.json`. В собранном бинарнике будут только `measure2` и `debug-snapshot` функции (см хелпер бинарника `flashlight --help`)
 
-<img width="596" alt="image" src="https://github.com/bamlab/flashlight/assets/4534323/82e107f4-8682-4c77-ab18-985fa1b8c2d1" style="border-radius: 10px">
-<br />
-<br />
-With Flashlight 🔦, you can either:
+Подробнее о `mesure2` в справке (`flashlight measure2 --help`)
 
-- Upload an app and get your performance score on [app.flashlight.dev](https://app.flashlight.dev/)
-
-Or use the CLI:
-
-- [`flashlight measure`](https://docs.flashlight.dev): quickly audit your perf with real-time measures
-- [`flashlight test`](https://docs.flashlight.dev/test): automate your measures with e2e performance testing over several iterations
-- [`flashlight cloud`](https://docs.flashlight.dev/cloud): run measures on real devices in the cloud & integrate in your CI setup
-
-## Installation
-
-**macOS/Linux**
-
-```bash
-curl https://get.flashlight.dev | bash
-```
-
-**Windows**
-
-```powershell
-iwr https://get.flashlight.dev/windows -useb | iex
-```
-
-## Usage
-
-Head over to the docs at [docs.flashlight.dev](https://docs.flashlight.dev)
-
-## Contributing
-
-We love pull requests! Head over to [the contribution guide](./CONTRIBUTING.md) to get started.
+П.С. Созданно в сжатые сроки и содержит в себе огромный потенциал для рефакторингов и улучшений.

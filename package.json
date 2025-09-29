@@ -12,6 +12,7 @@
   },
   "license": "MIT",
   "workspaces": [
+    "packages/*",
     "packages/*/*",
     "examples/*"
   ],
@@ -52,11 +53,28 @@
     "prettier": "^3.2.5",
     "ts-jest": "^29.0.3",
     "ts-node": "^10.9.2",
+    "tsc": "^2.0.4",
     "typescript": "^5.9.2"
   },
   "lint-staged": {
     "*.{ts,tsx}": "eslint --cache --fix",
     "*.{ts,tsx,md,json}": "prettier --write"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "pkg": {
+    "assets": [
+      "../../measure/dist/**/*",
+      "../../measure2/dist/**/*",
+      "../../report/dist/**/*",
+      "../../test/dist/**/*",
+      "../../tools/dist/**/*",
+      "../../platforms/android/cpp-profiler/bin/**/*"
+    ],
+    "scripts": [
+      "node_modules/axios/**/*",
+      "node_modules/react/**/*",
+      "node_modules/react-dom/**/*",
+      "node_modules/socket.io/**/*"
+    ]
+  }
 }
